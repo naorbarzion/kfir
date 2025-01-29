@@ -259,6 +259,189 @@
             border: none;
         }
 
+        .info-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .info-button:hover {
+            transform: scale(1.1);
+        }
+
+        .info-button i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .modal-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e40af;
+            text-align: center;
+            margin: 0;
+        }
+
+        .close-button {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: #1e40af;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .info-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .info-section:hover {
+            transform: translateX(-5px);
+        }
+
+        .info-section i {
+            font-size: 1.2rem;
+            color: #3b82f6;
+            margin-top: 0.2rem;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-content h3 {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .info-content p {
+            font-size: 0.95rem;
+            color: #334155;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .powered-by {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .powered-by img {
+            height: 20px;
+            width: auto;
+        }
+
         @media (max-width: 480px) {
             .header {
                 height: 190px;
@@ -298,6 +481,26 @@
 
             .map-container {
                 top: 190px;
+            }
+
+            .modal-content {
+                padding: 1.2rem;
+            }
+
+            .modal-title {
+                font-size: 1.2rem;
+            }
+
+            .info-section {
+                padding: 0.8rem;
+            }
+
+            .info-content h3 {
+                font-size: 1rem;
+            }
+
+            .info-content p {
+                font-size: 0.9rem;
             }
         }
 
@@ -407,6 +610,54 @@
         </iframe>
     </div>
 
+    <div class="info-button" onclick="openModal()">
+        <i class="fas fa-info"></i>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-button" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 class="modal-title">מידע על הקו</h2>
+            </div>
+            <div class="modal-body">
+                <div class="info-section">
+                    <i class="fas fa-heart"></i>
+                    <div class="info-content">
+                        <h3>אחים ואחיות יקרים</h3>
+                        <p>אנו שמחים לשרת אתכם ולהקל על הנסיעה שלכם לעבודה ובחזרה הביתה.</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <i class="fas fa-route"></i>
+                    <div class="info-content">
+                        <h3>פרטי הקו</h3>
+                        <p>איסוף: בשעה 22:00<br>
+                        פיזור: בשעה 23:15</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="info-content">
+                        <h3>זמינות המפה</h3>
+                        <p>המפה תהיה זמינה בשעה 21:50 בדיוק</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>בברכה,<br>צוות מסיעי כפיר בע"מ</p>
+                <div class="powered-by">
+                    Powered by Tracer Technologies
+                    <i class="fas fa-location-dot" style="color: #3b82f6;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function updateCountdown() {
             const now = new Date();
@@ -455,6 +706,25 @@
 
         setInterval(updateCountdown, 1000);
         document.addEventListener('DOMContentLoaded', updateCountdown);
+
+        function openModal() {
+            const modal = document.getElementById('infoModal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
